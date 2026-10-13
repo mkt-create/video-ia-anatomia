@@ -501,7 +501,7 @@ def draw_bio(img, t, roi):
         # the bolus spreads along the tunnel left by the cannula
         cl = (int((dp["x"] * AS - x0r - 14 * AS * g) * 16), c[1])
         cr = (int((dp["x"] * AS - x0r + 14 * AS * g) * 16), c[1])
-        cv2.line(gel, cl, cr, 0.6, int(5 * AS * g), cv2.LINE_AA, 4)
+        cv2.line(gel, cl, cr, 0.6, max(1, int(5 * AS * g)), cv2.LINE_AA, 4)
     if gel.max() > 0:
         soft = cv2.GaussianBlur(gel, (0, 0), 3.5 * AS)
         core = cv2.GaussianBlur(gel, (0, 0), 1.2 * AS)
