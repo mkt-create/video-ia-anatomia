@@ -1,7 +1,35 @@
 # video-ia-anatomia
 animação ref ia instagram
 
-## Remake glúteo / celulite: `output/gluteo_celulite_remake_v1.mp4`
+## v2: `output/gluteo_celulite_v2.mp4` (versão atual)
+
+1080×1920, 30 fps, 15 s, com a trilha do vídeo de referência.
+
+| Tempo | Plano | Conteúdo |
+|---|---|---|
+| 0,0–2,0 s | Filmagem real do ANTES, de costas | Push-in estabilizado por rastreamento; anéis finos acompanham 3 depressões reais; foco direcionado |
+| 2,0–4,75 s | Filmagem real do ANTES, arco lateral | Movimento real da câmera mostrando a celulite lateral, depois mergulho na pele (zoom com blur radial) |
+| 4,75–6,9 s | Imagem de IA enviada | Saindo da pele: revelação das camadas (pele, gordura, septos, músculo, vasos, osso) com passada de luz. Na pele, depressões puxadas pelas traves |
+| 6,9–9,35 s | Close nos septos | Traves fibrosas tensas ligam a gordura à camada septal e puxam a gordura para baixo. A agulha entra e rompe trave por trave, e as fibras recuam e se soltam |
+| 9,5–11,2 s | Bioestimulador | Ao recuar, a agulha deposita o gel ao longo do túnel e fibrilas de colágeno crescem a partir dos depósitos |
+| 11,2–12,05 s | Pele | A câmera sobe para a pele, as depressões se desfazem e há um mergulho de volta |
+| 12,05–15,0 s | Filmagem real do DEPOIS | Abre do close para o plano inteiro |
+
+**A filmagem do antes não foi alterada**: sem retoque, sem realce e com as marcações de caneta. Foram adicionados só enquadramento/movimento digital, anéis de destaque, uma gradação global igual para o vídeo todo (contraste suave, halation, vinheta e grão) e as transições.
+
+Código: `pipeline/render_v2.py`. Os tempos ficam em `SHOT_A / SHOT_B / SHOT_AF / AI_CAM / T_IN / T_OUT`, as traves em `CORDS` e as depressões da pele de IA em `DIMPLES`.
+
+```bash
+mkdir -p work/bf work/af
+ffmpeg -i "WhatsApp Video 2026-10-13 at 09.54.17.mp4" -t 10.5 -q:v 2 work/bf/%04d.jpg
+ffmpeg -ss 22 -i "WhatsApp Video 2026-10-13 at 09.54.15.mp4" -t 6 -q:v 2 work/af/%04d.jpg
+python3 pipeline/render_v2.py work assets/ai/camadas_gluteo.jpg out_noaudio.mp4
+ffmpeg -i out_noaudio.mp4 -i "WhatsApp Video 2026-10-13 at 09.49.07.mp4" -map 0:v -map 1:a -c:v copy -c:a aac -shortest final.mp4
+```
+
+---
+
+## v1 (anterior): `output/gluteo_celulite_remake_v1.mp4`
 
 1080×1920, 30 fps, 15 s, com a trilha do vídeo de referência. Segue a mesma estrutura e o mesmo ritmo do vídeo original, agora com o novo caso.
 
